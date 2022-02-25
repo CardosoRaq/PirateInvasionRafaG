@@ -14,8 +14,10 @@ class CannonBall {
     display(){
 
         push();
+        translate(this.body.position.x, this.body.position.y);
+        rotate(this.body.angle);
         imageMode(CENTER);
-        image(this.image, this.body.position.x,this.body.position.y, this.raio, this.raio,)
+        image(this.image,0,0, this.raio, this.raio);
         pop();
 
     }
@@ -32,6 +34,20 @@ class CannonBall {
         Matter.Body.setVelocity(this.body, 
             {x:velocity.x * (180/3.14) ,
              y:velocity.y * (180/3.14)})
+
+    }
+
+    remove(index){
+
+        Matter.Body.setVelocity(this.body, {x:0, y:0})
+
+        setTimeout (() =>{
+
+            Matter.World.remove(world, this.body);
+            delete balls[index];
+        
+        }, 1000);
+
 
     }
 
